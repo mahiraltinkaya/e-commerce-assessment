@@ -1,11 +1,8 @@
-import styles from "modules/App.module.scss";
+import { RouterProvider } from "react-router-dom";
 
+import router from "@router";
 function App() {
-  return (
-    <div className={styles.app}>
-      <div className={styles.head}>denem</div>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
