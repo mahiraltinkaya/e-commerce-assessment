@@ -9,7 +9,9 @@ import { store, persisted } from "@store/index";
 
 import { ThemeProvider, theme } from "@theme";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Container } from "@constants";
+import { Box } from "@constants";
+import { RouterProvider } from "react-router-dom";
+import router from "@router";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,9 +20,10 @@ root.render(
       <PersistGate loading={null} persistor={persisted}>
         <CssBaseline></CssBaseline>
         <ThemeProvider theme={theme}>
-          <Container>
+          <Box sx={{ bgcolor: "background.default", color: "text.primary" }}>
+            <RouterProvider router={router} />
             <App />
-          </Container>
+          </Box>
         </ThemeProvider>
       </PersistGate>
     </Provider>
