@@ -6,24 +6,24 @@ import App from "./App";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { store, persisted } from "@store/index";
-
 import { ThemeProvider, theme } from "@theme";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Box } from "@constants";
 import { RouterProvider } from "react-router-dom";
 import router from "@router";
+
+import ThemeLayout from "@theme/ThemeLayout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persisted}>
-        <CssBaseline></CssBaseline>
+        <CssBaseline />
         <ThemeProvider theme={theme}>
-          <Box sx={{ bgcolor: "background.default", color: "text.primary" }}>
+          <ThemeLayout>
             <RouterProvider router={router} />
             <App />
-          </Box>
+          </ThemeLayout>
         </ThemeProvider>
       </PersistGate>
     </Provider>
