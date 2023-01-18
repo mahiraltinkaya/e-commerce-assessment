@@ -8,8 +8,8 @@ const ThemeProvide = ({ children }) => {
     mode: "light",
     toggle: false,
   });
-
   const [search, setSearch] = React.useState("");
+  const [toggle, setToggle] = React.useState(false);
 
   const configUpdate = (conf) => {
     setConfig({
@@ -32,6 +32,8 @@ const ThemeProvide = ({ children }) => {
         search,
         setSearch,
         updateSearch,
+        toggle,
+        setToggle,
       }}
     >
       <Box

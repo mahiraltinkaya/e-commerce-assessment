@@ -1,11 +1,12 @@
 import React from "react";
 import { Container, Grid, TextField, Iconify, IconButton } from "@components";
-import styles from "./Header.module.scss";
+import styles from "modules/Header.module.scss";
 
 import { SettingsContext, useContext } from "@context";
 
 const HeaderComponent = () => {
-  const { search, updateSearch } = useContext(SettingsContext);
+  const { search, updateSearch, toggle, setToggle } =
+    useContext(SettingsContext);
 
   return (
     <Container maxWidth={false} className={styles.header}>
@@ -36,7 +37,12 @@ const HeaderComponent = () => {
               <IconButton aria-label="Favorites">
                 <Iconify icon={"material-symbols:favorite-rounded"}></Iconify>
               </IconButton>
-              <IconButton aria-label="Shopping Cart">
+              <IconButton
+                aria-label="Shopping Cart"
+                onClick={() => {
+                  setToggle(!toggle);
+                }}
+              >
                 <Iconify icon={"material-symbols:shopping-cart"}></Iconify>
               </IconButton>
             </div>
