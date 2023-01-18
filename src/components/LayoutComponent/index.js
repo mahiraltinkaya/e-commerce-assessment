@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-const Layout = ({
+const LayoutComponent = ({
   title = "E-commerce Platform developed React",
   children,
 }) => {
@@ -17,4 +17,4 @@ const Layout = ({
   );
 };
 
-export default Layout;
+export default LayoutComponent;
