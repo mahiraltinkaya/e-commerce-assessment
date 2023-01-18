@@ -1,6 +1,4 @@
 .card {
-  width: 240px;
-  margin: 5px 15px 15px 15px;
   &:hover {
     transition: 0.3s;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(148, 146, 148, 1);
@@ -8,7 +6,6 @@
     box-shadow: 0px 0px 5px 0px rgba(148, 146, 148, 1);
     cursor: pointer;
   }
-
   .image-wrapper {
     height: 240px;
     position: relative;
@@ -26,7 +23,7 @@
   .product-title {
     font-size: 14px;
     font-weight: 600;
-    height: 100px;
+    height: 70px;
     display: flex;
     flex-direction: column;
     margin-top: 15px;

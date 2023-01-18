@@ -1,16 +1,14 @@
 import { axiosInstance as axios } from "@axios";
 
 class ProductService {
-  fetchProducts() {
+  fetchProducts(limit = 8) {
     return new Promise(async (resolve, reject) => {
       return axios
-        .get("/products")
+        .get(`/products?limit=${limit}`)
         .then((result) => {
-          console.log(result);
           resolve(result);
         })
         .catch((err) => {
-          console.log(err);
           reject(err);
         });
     });

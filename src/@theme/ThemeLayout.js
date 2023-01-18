@@ -9,11 +9,19 @@ const ThemeProvide = ({ children }) => {
     toggle: false,
   });
 
+  const [search, setSearch] = React.useState("");
+
   const configUpdate = (conf) => {
     setConfig({
       ...config,
       conf,
+      search,
+      setSearch,
     });
+  };
+
+  const updateSearch = (val) => {
+    setSearch(val);
   };
 
   return (
@@ -21,15 +29,16 @@ const ThemeProvide = ({ children }) => {
       value={{
         config,
         configUpdate,
+        search,
+        setSearch,
+        updateSearch,
       }}
     >
       <Box
         sx={{
-          width: "100%",
+          width: "100vw",
           bgcolor: "background.default",
           color: "text.primary",
-          borderRadius: 1,
-          p: 3,
         }}
       >
         {children}

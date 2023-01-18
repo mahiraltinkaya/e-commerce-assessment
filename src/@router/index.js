@@ -1,10 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import {
-  createBrowserRouter,
-  Navigate,
-  useRoutes,
-  useLocation,
-} from "react-router-dom";
+import { createBrowserRouter, useLocation } from "react-router-dom";
 import ErrorPage from "pages/ErrorPage";
 import LoadingScreen from "components/LoadingScreen";
 

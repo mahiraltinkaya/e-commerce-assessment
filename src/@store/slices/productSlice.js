@@ -3,8 +3,8 @@ import ProductService from "services/Product.service";
 
 const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async (args, ThunkAPI) => {
-    const response = await ProductService.fetchProducts();
+  async (args) => {
+    const response = await ProductService.fetchProducts(args);
     return response.data;
   }
 );
@@ -26,11 +26,9 @@ export const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state, action) => {
-        console.log(action);
         state.isLoading = true;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        console.log(action);
         state.isLoading = false;
         state.products = action.payload;
       })
