@@ -20,13 +20,13 @@ const ProductFilter = ({ sort = "default", setSort }) => {
         placeholder="Sırala"
       >
         <MenuItem value={"default"} sx={{ fontSize: 12 }}>
-          Önerilen
+          Suggested
         </MenuItem>
         <MenuItem value={"asc"} sx={{ fontSize: 12 }}>
-          Fiyat:Düşükten Yükseğe
+          Low Price
         </MenuItem>
         <MenuItem value={"desc"} sx={{ fontSize: 12 }}>
-          Fiyat:Yüksekten Düşüğe
+          High Price
         </MenuItem>
       </TextField>
     </Box>

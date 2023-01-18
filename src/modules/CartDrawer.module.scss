@@ -1,0 +1,17 @@
+.drawer {
+  width: 300px;
+
+  .drawer__shopping-title {
+    font-size: 18px;
+    background-color: rgb(74, 162, 12);
+    color: white;
+    border-radius: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .drawer__no-item {
+    font-size: 14px;
+    text-align: center;
+  }
+}

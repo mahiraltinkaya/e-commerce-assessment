@@ -43,7 +43,10 @@ const ProductBox = ({ product }) => {
         >
           ${product.price}
         </Typography>
-        <IconButton>
+        <IconButton
+          size={"small"}
+          sx={{ background: "orange", color: "white" }}
+        >
           <Iconify
             icon={"material-symbols:add-shopping-cart-outline-rounded"}
           ></Iconify>

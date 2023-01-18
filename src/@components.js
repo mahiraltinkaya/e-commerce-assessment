@@ -16,11 +16,13 @@ import {
   Skeleton,
   Grid,
   MenuItem,
+  Drawer,
 } from "@mui/material";
 
 import Iconify from "components/Iconify";
 
 export {
+  Drawer,
   MenuItem,
   Grid,
   Skeleton,
