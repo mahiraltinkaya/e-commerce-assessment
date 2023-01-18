@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@constants";
+import { Box } from "@components";
 import { SettingsContext } from "@context";
 
 const ThemeProvide = ({ children }) => {

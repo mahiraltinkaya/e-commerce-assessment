@@ -5,7 +5,7 @@ import App from "./App";
 // import reportWebVitals from "./reportWebVitals";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
-import { store, persisted } from "@store/index";
+import { store, persisted } from "@store";
 import { ThemeProvider, theme } from "@theme";
 import CssBaseline from "@mui/material/CssBaseline";
 import { RouterProvider } from "react-router-dom";

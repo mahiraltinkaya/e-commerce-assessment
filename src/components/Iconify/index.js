@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Icon } from "@iconify/react";
-import { Box } from "@constants";
+import { Box } from "@components";
 
 const Iconify = ({ icon, sx, ...other }) => {
   return (

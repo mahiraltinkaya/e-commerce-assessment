@@ -1,30 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: 0,
+  toggle: false,
+  snackbar: false,
 };
 
 export const generalSlice = createSlice({
   name: "generals",
   initialState,
   reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
+    setToggle(state, { payload }) {
+      state.toggle = payload;
     },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    openSnackbar(state, { payload }) {
+      state.snackbar = true;
     },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = generalSlice.actions;
+export const { setToggle, openSnackbar } = generalSlice.actions;
 
 export default generalSlice.reducer;
