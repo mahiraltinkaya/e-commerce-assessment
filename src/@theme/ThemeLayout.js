@@ -1,6 +1,7 @@
 import React from "react";
 import { Box } from "@components";
 import { SettingsContext } from "@context";
+import "../index.scss";
 
 const ThemeProvide = ({ children }) => {
   const [config, setConfig] = React.useState({
