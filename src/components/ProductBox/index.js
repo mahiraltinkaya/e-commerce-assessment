@@ -17,7 +17,7 @@ const ProductBox = ({ product }) => {
   const truncate = useTruncute();
 
   return (
-    <Card className={styles.card}>
+    <Card className={styles.card} elevation={1}>
       <CardContent className={styles["image-wrapper"]}>
         <IconButton className={styles["add-favorite"]}>
           <Iconify icon={"material-symbols:favorite-outline-rounded"}></Iconify>
