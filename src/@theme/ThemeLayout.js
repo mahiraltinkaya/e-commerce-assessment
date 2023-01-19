@@ -2,23 +2,19 @@ import React from "react";
 import { Box } from "@components";
 import { SettingsContext } from "@context";
 import "../index.scss";
+import { createTheme, ThemeProvider } from "@mui/material";
+import { useSelector } from "@store";
 
 const ThemeProvide = ({ children }) => {
-  const [config, setConfig] = React.useState({
-    mode: "light",
-    toggle: false,
-  });
+  const { mode } = useSelector((state) => state.users);
   const [search, setSearch] = React.useState("");
   const [toggle, setToggle] = React.useState(false);
 
-  const configUpdate = (conf) => {
-    setConfig({
-      ...config,
-      conf,
-      search,
-      setSearch,
-    });
-  };
+  const theme = createTheme({
+    palette: {
+      mode: mode,
+    },
+  });
 
   const updateSearch = (val) => {
     setSearch(val);
@@ -27,8 +23,6 @@ const ThemeProvide = ({ children }) => {
   return (
     <SettingsContext.Provider
       value={{
-        config,
-        configUpdate,
         search,
         setSearch,
         updateSearch,
@@ -36,15 +30,17 @@ const ThemeProvide = ({ children }) => {
         setToggle,
       }}
     >
-      <Box
-        sx={{
-          width: "100vw",
-          bgcolor: "background.default",
-          color: "text.primary",
-        }}
-      >
-        {children}
-      </Box>
+      <ThemeProvider theme={theme}>
+        <Box
+          sx={{
+            width: "100vw",
+            bgcolor: "background.default",
+            color: "text.primary",
+          }}
+        >
+          {children}
+        </Box>
+      </ThemeProvider>
     </SettingsContext.Provider>
   );
 };

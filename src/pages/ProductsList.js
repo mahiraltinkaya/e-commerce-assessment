@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ProductBox from "components/ProductBox";
-import { fetchProducts } from "@store/slices/productSlice";
+import { fetchProducts, fetchAllCategories } from "@store/slices/productSlice";
 import { dispatch, useSelector } from "@store";
 import { Grid, Iconify, Typography } from "@components";
 import PagesLayout from "components/PagesLayout";
@@ -13,6 +13,7 @@ const ProductsList = () => {
   const { products, isLoading } = useSelector((state) => state.products);
   const [sort, setSort] = useState("default");
   const [limit, setLimit] = useState(12);
+  const [category, setCategory] = useState("all");
 
   const scrollHandler = () => {
     const scH = document.documentElement.scrollHeight;
@@ -24,6 +25,7 @@ const ProductsList = () => {
   };
 
   useEffect(() => {
+    dispatch(fetchAllCategories());
     window.addEventListener("scroll", scrollHandler);
     return () => window.removeEventListener("scroll", scrollHandler);
   }, []);
@@ -46,20 +48,26 @@ const ProductsList = () => {
       });
     }
 
-    if (search.trim()) {
+    if (search.trim() || category !== "all") {
       prodList = prodList.filter(
         (item) =>
-          item.title &&
-          item.title.toLowerCase().match(String(search.trim()).toLowerCase())
+          (search.trim() &&
+            item.title &&
+            item.title
+              .toLowerCase()
+              .match(String(search.trim()).toLowerCase())) ||
+          (category !== "all" && item.category === category)
       );
     }
 
     return prodList;
-  }, [products, sort, search]);
+  }, [products, sort, search, category]);
 
   return (
     <PagesLayout>
       <ProductFilter
+        category={category}
+        setCategory={setCategory}
         sort={sort}
         setSort={(e) => {
           setSort(e.target.value);

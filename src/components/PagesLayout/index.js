@@ -1,3 +1,4 @@
+import React from "react";
 import { Container, Drawer } from "@components";
 import HeaderComponent from "components/HeaderComponent";
 import FooterComponent from "components/FooterComponent";
@@ -34,4 +35,4 @@ const PagesLayout = ({ title = "React E-commerce Platform", children }) => {
   );
 };
 
-export default PagesLayout;
+export default React.memo(PagesLayout);

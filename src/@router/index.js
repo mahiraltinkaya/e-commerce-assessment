@@ -16,6 +16,7 @@ const Loadable = (Component) => (props) => {
 /* ROUTES */
 const ProductsList = Loadable(lazy(() => import("pages/ProductsList")));
 const ProductDetail = Loadable(lazy(() => import("pages/ProductDetail")));
+const CheckoutPage = Loadable(lazy(() => import("pages/CheckoutPage")));
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/products/:id",
     element: <ProductDetail />,
-    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/checkout",
+    element: <CheckoutPage />,
   },
 ]);
 

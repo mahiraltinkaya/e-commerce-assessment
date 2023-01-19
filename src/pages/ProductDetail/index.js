@@ -12,10 +12,11 @@ import {
   Rating,
   Button,
   Iconify,
+  Skeleton,
 } from "@components";
 import styles from "modules/ProductDetails.module.scss";
 
-import { addCart, addFavorites } from "@store/slices/userSlice";
+import { addCart } from "@store/slices/userSlice";
 
 import { useContext, SettingsContext } from "@context";
 
@@ -89,10 +90,6 @@ const ProductDetail = () => {
                 </Button>
                 <Button
                   variant={"outlined"}
-                  onClick={() => {
-                    dispatch(addFavorites({ ...product, qty: 1 }));
-                    setToggle(true);
-                  }}
                   sx={{ mr: 1, minWidth: 200 }}
                   color={"secondary"}
                 >
@@ -102,6 +99,56 @@ const ProductDetail = () => {
                   ></Iconify>
                   Add To Wishlist
                 </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      )}
+
+      {!product && (
+        <Box className={styles.wrapper}>
+          <Grid container>
+            <Grid
+              item
+              xs={12}
+              md={4}
+              className={styles["wrapper__left-section"]}
+            >
+              <Card>
+                <CardContent>
+                  <Skeleton height={500}></Skeleton>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={8}
+              className={styles["wrapper__right-section"]}
+            >
+              <Typography variant={"h6"}>
+                <Skeleton height={30}></Skeleton>
+              </Typography>
+
+              <Box className={styles["product-category"]}>
+                <Skeleton height={30} width={"30%"}></Skeleton>
+              </Box>
+              <Box>
+                <Skeleton height={30}> </Skeleton>
+              </Box>
+              <Box className={styles["product-price"]}>
+                <Skeleton height={30} width={200}></Skeleton>
+              </Box>
+              <Box className={styles["product-description"]}>
+                <Skeleton height={150} width={"100%"}>
+                  {" "}
+                </Skeleton>
+              </Box>
+              <Box
+                sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+              >
+                <Skeleton height={60} width={200} sx={{ mr: 2 }}></Skeleton>
+                <Skeleton height={60} width={200}></Skeleton>
               </Box>
             </Grid>
           </Grid>

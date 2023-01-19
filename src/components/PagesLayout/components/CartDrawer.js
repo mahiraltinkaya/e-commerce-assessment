@@ -17,10 +17,13 @@ import styles from "modules/CartDrawer.module.scss";
 import { dispatch, useSelector } from "@store";
 import useTruncate from "hooks/useTruncute";
 import useCartTotals from "hooks/useCartTotals";
-
+import useParseLayout from "hooks/useParseLayout";
 import { deleteCart } from "@store/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const CartDrawer = ({ setToggle }) => {
+  const floatParse = useParseLayout();
+  const navigate = useNavigate();
   const cartTotals = useCartTotals();
   const truncate = useTruncate();
   const { cart } = useSelector((state) => state.users);
@@ -44,19 +47,21 @@ const CartDrawer = ({ setToggle }) => {
           </CardContent>
         )}
 
-        {cart &&
-          cart.length > 0 &&
-          cart.map((prod, i) => (
-            <Box key={i}>
-              <List>
-                <ListItem>
+        <Box>
+          <List>
+            {cart &&
+              cart.length > 0 &&
+              cart.map((prod, i) => (
+                <ListItem key={i} sx={{ borderBottom: ".5px solid #d9d9d9" }}>
                   <ListItemAvatar size={24}>
                     <Avatar src={prod.image}></Avatar>
                   </ListItemAvatar>
                   <ListItemText>
                     {truncate(prod.title, 20)}
-                    <br></br>
-                    <span style={{ fontSize: 12 }}> {prod.qty} pcs. </span>
+                    <div style={{ fontSize: 12, fontWeight: "bold" }}>
+                      ${floatParse(prod.price * prod.qty)}
+                    </div>
+                    <div style={{ fontSize: 10 }}> {prod.qty} pcs. </div>
                   </ListItemText>
                   <ListItemButton
                     onClick={() => {
@@ -65,31 +70,39 @@ const CartDrawer = ({ setToggle }) => {
                   >
                     <Iconify
                       icon={"material-symbols:delete-forever-outline-rounded"}
-                      size={22}
+                      size={28}
                       sx={{ color: "red" }}
                     ></Iconify>
                   </ListItemButton>
                 </ListItem>
-              </List>
-            </Box>
-          ))}
-
-        {cartTotals().total > 0 && (
-          <Box
-            sx={{ padding: 2, fontWeight: "bold", fontSize: 22 }}
-            className={styles["drawer__shopping-title"]}
-          >
-            Cart Total : ${cartTotals().total}
-          </Box>
-        )}
+              ))}
+          </List>
+        </Box>
 
         {cart && cart.length > 0 && (
-          <Box>
+          <Box sx={{ position: "absolute", width: 300, bottom: 0 }}>
+            {cartTotals().total > 0 && (
+              <>
+                <Box
+                  sx={{ padding: 2, fontWeight: "bold", fontSize: 22 }}
+                  className={styles["drawer__shopping-title"]}
+                >
+                  <div>Cart Total : ${cartTotals().total}</div>
+                  <div style={{ fontSize: 12, fontWeight: "bold" }}>
+                    ({cartTotals().pieces} total pcs.)
+                  </div>
+                </Box>
+              </>
+            )}
             <Button
               fullWidth
               variant={"outlined"}
               color={"success"}
               size={"large"}
+              onClick={() => {
+                navigate("/checkout");
+              }}
+              sx={{ height: 70 }}
             >
               <Iconify icon={"ic:twotone-shopping-cart-checkout"}></Iconify>
               Checkout
