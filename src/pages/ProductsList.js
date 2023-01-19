@@ -12,20 +12,19 @@ const ProductsList = () => {
   const { search } = useContext(SettingsContext);
   const { products, isLoading } = useSelector((state) => state.products);
   const [sort, setSort] = useState("default");
-  const [limit, setLimit] = useState(8);
+  const [limit, setLimit] = useState(12);
 
   const scrollHandler = () => {
     const scH = document.documentElement.scrollHeight;
     const scT = document.documentElement.scrollTop;
     const winH = window.innerHeight;
     if (winH + scT + 1 >= scH) {
-      setLimit((prev) => prev + 8);
+      setLimit((prev) => prev + 4);
     }
   };
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler);
-
     return () => window.removeEventListener("scroll", scrollHandler);
   }, []);
 

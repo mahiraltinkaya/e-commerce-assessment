@@ -14,12 +14,18 @@ const Loadable = (Component) => (props) => {
 };
 
 /* ROUTES */
-const ProductsList = Loadable(lazy(() => import("pages/ProducstList")));
+const ProductsList = Loadable(lazy(() => import("pages/ProductsList")));
+const ProductDetail = Loadable(lazy(() => import("pages/ProductDetail")));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <ProductsList />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/products/:id",
+    element: <ProductDetail />,
     errorElement: <ErrorPage />,
   },
 ]);
