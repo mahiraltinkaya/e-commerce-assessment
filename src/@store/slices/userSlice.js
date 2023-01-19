@@ -5,6 +5,7 @@ const initialState = {
   cart: [],
   token: null,
   favorites: [],
+  mode: "light",
 };
 
 export const userSlice = createSlice({
@@ -30,9 +31,13 @@ export const userSlice = createSlice({
     addFavorites(state, { payload }) {
       state.favorites.push(payload);
     },
+    setMode(state, action) {
+      state.mode = action.payload;
+    },
   },
 });
 
-export const { setUser, addFavorites, addCart, deleteCart } = userSlice.actions;
+export const { setUser, addFavorites, addCart, deleteCart, setMode } =
+  userSlice.actions;
 
 export default userSlice.reducer;

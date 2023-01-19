@@ -22,6 +22,9 @@ import {
   ListItemButton,
   ListItem,
   ListItemAvatar,
+  styled,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 
 import Iconify from "components/Iconify";
@@ -51,4 +54,7 @@ export {
   ListItemButton,
   ListItem,
   ListItemAvatar,
+  styled,
+  Switch,
+  FormControlLabel,
 };

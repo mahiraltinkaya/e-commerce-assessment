@@ -25,6 +25,19 @@ class ProductService {
         });
     });
   }
+
+  fetchAllCategories() {
+    return new Promise(async (resolve, reject) => {
+      return axios
+        .get(`/products/categories`)
+        .then((result) => {
+          resolve(result);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
 }
 
 const instance = new ProductService();

@@ -1,31 +1,50 @@
 .header {
-  height: 70px;
-  background-color: rgba(255, 255, 255, 0.924);
   display: flex;
   align-items: center;
   border-bottom: 0.8px solid #dedede;
+
   .header__logo {
     display: flex;
     align-items: center;
     img {
+      margin-top: 10px;
       height: 50px;
     }
   }
   .header__searchbox {
     display: flex;
     align-items: center;
-    input {
-      outline: none;
-    }
-    @media screen and (max-width: 770px) {
-      & {
-        display: none;
-      }
-    }
   }
   .header__controls {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
+    ul {
+      margin: 0;
+      margin-top: 2px;
+      padding: 0;
+      list-style: none;
+      float: left;
+      display: flex;
+      li {
+        padding: 0px 5px;
+        display: flex;
+        align-items: center;
+        a {
+          font-weight: bold;
+          font-size: 10px;
+          color: #484646;
+          margin-right: 5px;
+          text-decoration: none;
+        }
+      }
+    }
+
+    @media screen and (max-width: 770px) {
+      & {
+        justify-content: center;
+      }
+    }
   }
 }

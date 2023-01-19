@@ -5,7 +5,6 @@ import App from "./App";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { store, persisted } from "@store";
-import { ThemeProvider, theme } from "@theme";
 import CssBaseline from "@mui/material/CssBaseline";
 import { RouterProvider } from "react-router-dom";
 import router from "@router";
@@ -18,12 +17,10 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persisted}>
         <CssBaseline />
-        <ThemeProvider theme={theme}>
-          <ThemeLayout>
-            <RouterProvider router={router} />
-            <App />
-          </ThemeLayout>
-        </ThemeProvider>
+        <ThemeLayout>
+          <RouterProvider router={router} />
+          <App />
+        </ThemeLayout>
       </PersistGate>
     </Provider>
   </React.StrictMode>
