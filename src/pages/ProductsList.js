@@ -1,6 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ProductBox from "components/ProductBox";
-import { fetchProducts, fetchAllCategories } from "@store/slices/productSlice";
+import {
+  fetchProducts,
+  fetchAllCategories,
+  fetchProductsByCategory,
+} from "@store/slices/productSlice";
 import { dispatch, useSelector } from "@store";
 import { Grid, Iconify, Typography } from "@components";
 import PagesLayout from "components/PagesLayout";
@@ -26,42 +30,63 @@ const ProductsList = () => {
 
   useEffect(() => {
     dispatch(fetchAllCategories());
+
     window.addEventListener("scroll", scrollHandler);
     return () => window.removeEventListener("scroll", scrollHandler);
   }, []);
 
   useEffect(() => {
-    if (!isLoading && products.length < 20) dispatch(fetchProducts(limit));
-    return () => {};
+    if (category === "all") {
+      if (!isLoading && products.length < 20) {
+        dispatch(fetchProducts({ limit, sort }));
+      }
+    } else {
+      dispatch(fetchProducts({ limit, sort }));
+    }
   }, [limit]); // eslint-disable-line
+
+  useEffect(() => {
+    if (category !== "all") {
+      dispatch(fetchProductsByCategory({ category, sort }));
+    } else {
+      dispatch(fetchProducts({ limit, sort }));
+    }
+  }, [category]); // eslint-disable-line
+
+  useEffect(() => {
+    if (sort !== "default") {
+      if (category !== "all") {
+        dispatch(fetchProductsByCategory({ category, sort }));
+      } else {
+        dispatch(fetchProducts({ limit, sort }));
+      }
+    }
+  }, [sort]); // eslint-disable-line
 
   const filteredProduct = useMemo(() => {
     let prodList = [...products];
 
-    if (sort === "asc") {
-      prodList.sort((a, b) => {
-        return a.price - b.price;
-      });
-    } else if (sort === "desc") {
-      prodList.sort((a, b) => {
-        return b.price - a.price;
-      });
-    }
+    // if (sort === "asc") {
+    //   prodList.sort((a, b) => {
+    //     return a.price - b.price;
+    //   });
+    // } else if (sort === "desc") {
+    //   prodList.sort((a, b) => {
+    //     return b.price - a.price;
+    //   });
+    // }
 
-    if (search.trim() || category !== "all") {
+    if (search.trim()) {
       prodList = prodList.filter(
         (item) =>
-          (search.trim() &&
-            item.title &&
-            item.title
-              .toLowerCase()
-              .match(String(search.trim()).toLowerCase())) ||
-          (category !== "all" && item.category === category)
+          search.trim() &&
+          item.title &&
+          item.title.toLowerCase().match(String(search.trim()).toLowerCase())
       );
     }
 
     return prodList;
-  }, [products, sort, search, category]);
+  }, [products, search]);
 
   return (
     <PagesLayout>
@@ -118,4 +143,4 @@ const ProductsList = () => {
   );
 };
 
-export default ProductsList;
+export default React.memo(ProductsList);

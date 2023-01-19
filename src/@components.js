@@ -25,6 +25,9 @@ import {
   styled,
   Switch,
   FormControlLabel,
+  Stepper,
+  Step,
+  StepLabel,
 } from "@mui/material";
 
 import Iconify from "components/Iconify";
@@ -57,4 +60,7 @@ export {
   styled,
   Switch,
   FormControlLabel,
+  Stepper,
+  Step,
+  StepLabel,
 };

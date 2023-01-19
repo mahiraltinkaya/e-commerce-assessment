@@ -25,6 +25,14 @@ export const fetchAllCategories = createAsyncThunk(
   }
 );
 
+export const fetchProductsByCategory = createAsyncThunk(
+  "products/fetchProductsByCategory",
+  async (category) => {
+    const response = await ProductService.fetchProductsByCategory(category);
+    return response.data;
+  }
+);
+
 const initialState = {
   products: [],
   product: null,
@@ -51,6 +59,19 @@ export const productSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(fetchProducts.rejected, (state, payload) => {
+        state.isLoading = false;
+      });
+
+    builder
+      .addCase(fetchProductsByCategory.pending, (state, action) => {
+        state.products = [];
+        state.isLoading = true;
+      })
+      .addCase(fetchProductsByCategory.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.products = action.payload;
+      })
+      .addCase(fetchProductsByCategory.rejected, (state, payload) => {
         state.isLoading = false;
       });
 
