@@ -19,7 +19,7 @@ const useCartTotals = () => {
       return x;
     });
 
-    return summary;
+    return { ...summary, tax: parseFloat(summary.tax).toFixed(2) };
   };
 
   return cartTotals;

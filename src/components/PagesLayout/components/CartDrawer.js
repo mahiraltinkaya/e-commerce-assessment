@@ -6,26 +6,19 @@ import {
   Iconify,
   IconButton,
   Button,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Avatar,
-  ListItemButton,
 } from "@components";
 import styles from "modules/CartDrawer.module.scss";
-import { dispatch, useSelector } from "@store";
-import useTruncate from "hooks/useTruncute";
+import { useSelector } from "@store";
+
 import useCartTotals from "hooks/useCartTotals";
-import useParseLayout from "hooks/useParseLayout";
-import { deleteCart } from "@store/slices/userSlice";
+
 import { useNavigate } from "react-router-dom";
+import CartProductList from "./CartProductList";
 
 const CartDrawer = ({ setToggle }) => {
-  const floatParse = useParseLayout();
   const navigate = useNavigate();
   const cartTotals = useCartTotals();
-  const truncate = useTruncate();
+
   const { cart } = useSelector((state) => state.users);
 
   return (
@@ -47,38 +40,7 @@ const CartDrawer = ({ setToggle }) => {
           </CardContent>
         )}
 
-        <Box>
-          <List>
-            {cart &&
-              cart.length > 0 &&
-              cart.map((prod, i) => (
-                <ListItem key={i} sx={{ borderBottom: ".5px solid #d9d9d9" }}>
-                  <ListItemAvatar size={24}>
-                    <Avatar src={prod.image}></Avatar>
-                  </ListItemAvatar>
-                  <ListItemText>
-                    {truncate(prod.title, 20)}
-                    <div style={{ fontSize: 12, fontWeight: "bold" }}>
-                      ${floatParse(prod.price * prod.qty)}
-                    </div>
-                    <div style={{ fontSize: 10 }}> {prod.qty} pcs. </div>
-                  </ListItemText>
-                  <ListItemButton
-                    onClick={() => {
-                      dispatch(deleteCart(prod));
-                    }}
-                  >
-                    <Iconify
-                      icon={"material-symbols:delete-forever-outline-rounded"}
-                      size={28}
-                      sx={{ color: "red" }}
-                    ></Iconify>
-                  </ListItemButton>
-                </ListItem>
-              ))}
-          </List>
-        </Box>
-
+        {cart.length > 0 && <CartProductList cart={cart}></CartProductList>}
         {cart && cart.length > 0 && (
           <Box sx={{ position: "absolute", width: 300, bottom: 0 }}>
             {cartTotals().total > 0 && (
@@ -101,6 +63,7 @@ const CartDrawer = ({ setToggle }) => {
               size={"large"}
               onClick={() => {
                 navigate("/checkout");
+                setToggle(false);
               }}
               sx={{ height: 70 }}
             >
