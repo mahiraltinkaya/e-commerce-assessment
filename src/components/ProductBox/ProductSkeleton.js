@@ -1,6 +1,6 @@
 import React from "react";
 import { Skeleton, Card, CardContent, Divider, CardActions } from "@components";
-import styles from "./ProductBox.module.scss";
+import styles from "modules/ProductBox.module.scss";
 
 const ProductSkeleton = () => {
   return (

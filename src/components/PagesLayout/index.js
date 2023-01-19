@@ -5,7 +5,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { SettingsContext, useContext } from "@context";
 import CartDrawer from "./components/CartDrawer";
 
-const PagesLayout = ({ title = "React E-commerce Test App", children }) => {
+const PagesLayout = ({ title = "React E-commerce Platform", children }) => {
   const { toggle, setToggle } = useContext(SettingsContext);
 
   return (
@@ -16,7 +16,6 @@ const PagesLayout = ({ title = "React E-commerce Test App", children }) => {
           <title>{title}</title>
         </Helmet>
       </HelmetProvider>
-      <HeaderComponent></HeaderComponent>
       <Drawer
         anchor={"right"}
         open={toggle}
@@ -26,10 +25,11 @@ const PagesLayout = ({ title = "React E-commerce Test App", children }) => {
       >
         <CartDrawer setToggle={setToggle} />
       </Drawer>
-      <Container maxWidth="lg" sx={{ minHeight: "80vh" }}>
+      <Container maxWidth="lg" sx={{ minHeight: "100vh" }}>
+        <HeaderComponent></HeaderComponent>
         {children}
+        <FooterComponent></FooterComponent>
       </Container>
-      <FooterComponent></FooterComponent>
     </>
   );
 };

@@ -24,14 +24,8 @@
     }
   }
   .header__controls {
-    margin-top: 5px;
     display: flex;
     justify-content: flex-end;
-    align-items: "center";
-    @media screen and (max-width: 770px) {
-      & {
-        display: none;
-      }
-    }
+    align-items: center;
   }
 }

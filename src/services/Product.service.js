@@ -13,7 +13,18 @@ class ProductService {
         });
     });
   }
-  fetchProductById(id) {}
+  fetchProductById(id) {
+    return new Promise(async (resolve, reject) => {
+      return axios
+        .get(`/products/${id}`)
+        .then((result) => {
+          resolve(result);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
 }
 
 const instance = new ProductService();

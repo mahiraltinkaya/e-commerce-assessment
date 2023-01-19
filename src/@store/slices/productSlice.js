@@ -9,8 +9,17 @@ const fetchProducts = createAsyncThunk(
   }
 );
 
+const fetchProductById = createAsyncThunk(
+  "products/fetchProductById",
+  async (args) => {
+    const response = await ProductService.fetchProductById(args);
+    return response.data;
+  }
+);
+
 const initialState = {
   products: [],
+  product: null,
   sort: false,
   isLoading: false,
 };
@@ -35,6 +44,18 @@ export const productSlice = createSlice({
       .addCase(fetchProducts.rejected, (state, payload) => {
         state.isLoading = false;
       });
+
+    builder
+      .addCase(fetchProductById.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchProductById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.product = action.payload;
+      })
+      .addCase(fetchProductById.rejected, (state) => {
+        state.isLoading = false;
+      });
   },
 });
 
@@ -42,4 +63,4 @@ export const { setSorting } = productSlice.actions;
 
 export default productSlice.reducer;
 
-export { fetchProducts };
+export { fetchProducts, fetchProductById };
