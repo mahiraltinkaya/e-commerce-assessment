@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   toggle: false,
   snackbar: false,
+  cc: null,
+  shipment: null,
 };
 
 export const generalSlice = createSlice({
@@ -15,9 +17,16 @@ export const generalSlice = createSlice({
     openSnackbar(state, { payload }) {
       state.snackbar = true;
     },
+    setShipment(state, action) {
+      state.shipment = action.payload;
+    },
+    setCC(state, action) {
+      state.cc = action.payload;
+    },
   },
 });
 
-export const { setToggle, openSnackbar } = generalSlice.actions;
+export const { setToggle, openSnackbar, setShipment, setCC } =
+  generalSlice.actions;
 
 export default generalSlice.reducer;
