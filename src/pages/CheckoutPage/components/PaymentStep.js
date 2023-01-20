@@ -5,9 +5,12 @@ import { Grid, TextField, Button, Iconify } from "@components";
 import { useForm, Controller } from "react-hook-form";
 import useInputMask from "hooks/useInputMask";
 import { useSelector } from "@store";
+import { SettingsContext, useContext } from "@context";
 
 const PaymentStep = ({ onSubmit, prevStep }) => {
+  const { setLoginModal } = useContext(SettingsContext);
   const { cc } = useSelector((state) => state.generals);
+  const { token } = useSelector((state) => state.users);
   const inputMasked = useInputMask();
   const [cardNumber, setCardNumber] = useState(cc?.cc);
   const [expire, setExpire] = useState(cc?.expire);
@@ -99,8 +102,8 @@ const PaymentStep = ({ onSubmit, prevStep }) => {
               fullWidth
               {...register("cc")}
               aria-invalid={errors.phone ? "true" : "false"}
-              error={!!errors.phone}
-              helperText={errors.phone?.message}
+              error={!!errors.cc}
+              helperText={errors.cc?.message}
               onChange={(e) => {
                 setCardNumber(
                   inputMasked("#### #### #### ####", e.target.value)
@@ -119,8 +122,8 @@ const PaymentStep = ({ onSubmit, prevStep }) => {
               fullWidth
               {...register("expire")}
               aria-invalid={errors.phone ? "true" : "false"}
-              error={!!errors.phone}
-              helperText={errors.phone?.message}
+              error={!!errors.expire}
+              helperText={errors.expire?.message}
               onChange={(e) => {
                 setExpire(inputMasked("##/####", e.target.value));
                 setValue("expire", expire);
@@ -136,8 +139,8 @@ const PaymentStep = ({ onSubmit, prevStep }) => {
               fullWidth
               {...register("cvv")}
               aria-invalid={errors.phone ? "true" : "false"}
-              error={!!errors.phone}
-              helperText={errors.phone?.message}
+              error={!!errors.cvv}
+              helperText={errors.cvv?.message}
               onChange={(e) => {
                 setCvv(inputMasked("###", e.target.value));
                 setValue("cvv", expire);
@@ -167,12 +170,15 @@ const PaymentStep = ({ onSubmit, prevStep }) => {
             </Button>
 
             <Button
+              type={token ? "submit" : "button"}
               color={"warning"}
-              type={"submit"}
               variant={"outlined"}
               size="small"
+              onClick={() => {
+                !token && setLoginModal(true);
+              }}
             >
-              Complete Order
+              Complete Order{" "}
               <Iconify icon={"material-symbols:chevron-right"}></Iconify>
             </Button>
           </Grid>
