@@ -33,9 +33,12 @@ import {
   Alert,
 } from "@mui/material";
 
+import { LoadingButton } from "@mui/lab";
+
 import Iconify from "components/Iconify";
 
 export {
+  LoadingButton,
   Alert,
   InputAdornment,
   Modal,
