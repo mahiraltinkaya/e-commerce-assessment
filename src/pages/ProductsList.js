@@ -30,7 +30,6 @@ const ProductsList = () => {
 
   useEffect(() => {
     dispatch(fetchAllCategories());
-
     window.addEventListener("scroll", scrollHandler);
     return () => window.removeEventListener("scroll", scrollHandler);
   }, []);

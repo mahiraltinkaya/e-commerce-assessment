@@ -5,10 +5,11 @@ import styles from "modules/Header.module.scss";
 import { SettingsContext, useContext } from "@context";
 import { setMode } from "@store/slices/userSlice";
 import { useSelector, dispatch } from "@store";
+import { destroySession } from "@store/slices/userSlice";
 
 const HeaderComponent = () => {
-  const { mode } = useSelector((state) => state.users);
-  const { search, updateSearch, toggle, setToggle } =
+  const { mode, token } = useSelector((state) => state.users);
+  const { search, updateSearch, toggle, setToggle, setLoginModal } =
     useContext(SettingsContext);
 
   return (
@@ -55,14 +56,33 @@ const HeaderComponent = () => {
       </Grid>
       <Grid item xs={12} className={styles["header__controls"]}>
         <div style={{ height: 40 }}>
-          <Button
-            aria-label="User Profile"
-            size={"small"}
-            sx={{ mr: 1 }}
-            color={"warning"}
-          >
-            Login <Iconify size={18} icon={"mdi:user-circle"}></Iconify>
-          </Button>
+          {token && (
+            <Button
+              aria-label="User Profile"
+              size={"small"}
+              sx={{ mr: 1 }}
+              color={"warning"}
+              onClick={() => {
+                dispatch(destroySession());
+              }}
+            >
+              Logout <Iconify size={18} icon={"mdi:user-circle"}></Iconify>
+            </Button>
+          )}
+          {!token && (
+            <Button
+              aria-label="User Profile"
+              size={"small"}
+              sx={{ mr: 1 }}
+              color={"warning"}
+              onClick={() => {
+                setLoginModal(true);
+              }}
+            >
+              Login <Iconify size={18} icon={"mdi:user-circle"}></Iconify>
+            </Button>
+          )}
+
           <Button
             aria-label="Shopping Cart"
             onClick={() => {

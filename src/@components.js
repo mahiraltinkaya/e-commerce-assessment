@@ -1,4 +1,6 @@
 import {
+  InputAdornment,
+  Modal,
   Button,
   IconButton,
   TextField,
@@ -28,11 +30,15 @@ import {
   Stepper,
   Step,
   StepLabel,
+  Alert,
 } from "@mui/material";
 
 import Iconify from "components/Iconify";
 
 export {
+  Alert,
+  InputAdornment,
+  Modal,
   Drawer,
   MenuItem,
   Grid,

@@ -9,6 +9,7 @@ const ThemeProvide = ({ children }) => {
   const { mode } = useSelector((state) => state.users);
   const [search, setSearch] = React.useState("");
   const [toggle, setToggle] = React.useState(false);
+  const [loginModal, setLoginModal] = React.useState(false);
 
   const theme = createTheme({
     palette: {
@@ -28,6 +29,8 @@ const ThemeProvide = ({ children }) => {
         updateSearch,
         toggle,
         setToggle,
+        loginModal,
+        setLoginModal,
       }}
     >
       <ThemeProvider theme={theme}>

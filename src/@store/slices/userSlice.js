@@ -6,6 +6,7 @@ const initialState = {
   token: null,
   favorites: [],
   mode: "light",
+  isLoading: false,
 };
 
 export const userSlice = createSlice({
@@ -25,6 +26,13 @@ export const userSlice = createSlice({
     deleteCart(state, action) {
       state.cart = state.cart.filter((x) => x.id !== action.payload.id);
     },
+    destroyCart(state) {
+      state.cart = [];
+    },
+    destroySession(state) {
+      state.user = null;
+      state.token = null;
+    },
     setUser(state, { payload }) {
       state.user = payload;
     },
@@ -34,10 +42,22 @@ export const userSlice = createSlice({
     setMode(state, action) {
       state.mode = action.payload;
     },
+    login(state, action) {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+    },
   },
 });
 
-export const { setUser, addFavorites, addCart, deleteCart, setMode } =
-  userSlice.actions;
+export const {
+  setUser,
+  addFavorites,
+  addCart,
+  deleteCart,
+  setMode,
+  destroyCart,
+  login,
+  destroySession,
+} = userSlice.actions;
 
 export default userSlice.reducer;

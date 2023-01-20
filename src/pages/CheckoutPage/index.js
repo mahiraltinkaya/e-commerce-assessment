@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import PagesLayout from "components/PagesLayout";
 import CartProductList from "components/PagesLayout/components/CartProductList";
@@ -20,20 +20,44 @@ import useCartTotals from "hooks/useCartTotals";
 import { useNavigate } from "react-router-dom";
 import PaymentStep from "./components/PaymentStep";
 import ShipmentStep from "./components/ShipmentStep";
-const steps = ["Shipment Information", "Complete Payment"];
+
+import { dispatch } from "@store";
+import { setCC, setShipment } from "@store/slices/generalSlice";
+import OrderResult from "./components/OrderResult";
+
+const steps = ["Shipment Information", "Payment Information", "Order Result"];
 
 const CheckoutPage = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const cartTotals = useCartTotals();
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const { cart } = useSelector((state) => state.users);
+  const [success, setSuccess] = useState(false);
+
+  const shipmentInformation = (val) => {
+    dispatch(setShipment(val));
+
+    setActiveStep((prev) => prev + 1);
+  };
+
+  const paymentComplete = (card) => {
+    if (card.cc === "5555 5555 5555 5555") {
+      setSuccess(true);
+    }
+  };
+
+  const paymentInformation = (val) => {
+    dispatch(setCC(val));
+    paymentComplete(val);
+    setActiveStep((prev) => prev + 1);
+  };
 
   return (
     <PagesLayout>
       <Card elevation={0} sx={{ minHeight: "70vh" }}>
         <CardContent>
           <Grid container>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={12} sm={12} md={8}>
               {cart && cart.length === 0 && (
                 <Box
                   sx={{
@@ -73,18 +97,35 @@ const CheckoutPage = () => {
                   </Box>
                   {activeStep === 0 && (
                     <Box sx={{ p: 3 }}>
-                      <ShipmentStep></ShipmentStep>
+                      <ShipmentStep
+                        onSubmit={shipmentInformation}
+                      ></ShipmentStep>
                     </Box>
                   )}
                   {activeStep === 1 && (
                     <Box sx={{ p: 3 }}>
-                      <PaymentStep></PaymentStep>
+                      <PaymentStep
+                        prevStep={(e) => {
+                          setActiveStep((prev) => prev + e);
+                        }}
+                        onSubmit={paymentInformation}
+                      ></PaymentStep>
+                    </Box>
+                  )}
+                  {activeStep === 2 && (
+                    <Box sx={{ p: 3 }}>
+                      <OrderResult
+                        success={success}
+                        prevStep={(e) => {
+                          setActiveStep((prev) => prev + e);
+                        }}
+                      ></OrderResult>
                     </Box>
                   )}
                 </>
               )}
             </Grid>
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={12} sm={12} md={4}>
               <Card
                 elevation={0}
                 sx={{ borderRadius: 2, border: ".5px solid #d9d9d9" }}

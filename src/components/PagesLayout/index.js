@@ -5,9 +5,11 @@ import FooterComponent from "components/FooterComponent";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { SettingsContext, useContext } from "@context";
 import CartDrawer from "./components/CartDrawer";
+import LoginModal from "components/LoginModal";
 
 const PagesLayout = ({ title = "React E-commerce Platform", children }) => {
-  const { toggle, setToggle } = useContext(SettingsContext);
+  const { toggle, setToggle, loginModal, setLoginModal } =
+    useContext(SettingsContext);
 
   return (
     <>
@@ -26,6 +28,9 @@ const PagesLayout = ({ title = "React E-commerce Platform", children }) => {
       >
         <CartDrawer setToggle={setToggle} />
       </Drawer>
+      {loginModal && (
+        <LoginModal open={loginModal} handleClose={setLoginModal}></LoginModal>
+      )}
       <Container maxWidth="lg" sx={{ minHeight: "100vh" }}>
         <HeaderComponent></HeaderComponent>
         {children}
