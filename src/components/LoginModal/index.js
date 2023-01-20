@@ -17,10 +17,12 @@ import UserService from "services/User.service";
 import UserForm from "./UserForm";
 
 const LoginModal = ({ open = true, handleClose }) => {
+  const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(null);
   const [type, setType] = React.useState(false);
 
   const onSubmit = (val) => {
+    setLoading(true);
     if (type) {
       UserService.register(val)
         .then((res) => {
@@ -28,8 +30,11 @@ const LoginModal = ({ open = true, handleClose }) => {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+          setType(false);
         });
-      setType(false);
     } else {
       UserService.login(val)
         .then((res) => {
@@ -38,6 +43,9 @@ const LoginModal = ({ open = true, handleClose }) => {
         })
         .catch((err) => {
           setSuccess(false);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   };
@@ -66,6 +74,7 @@ const LoginModal = ({ open = true, handleClose }) => {
             onSubmit={onSubmit}
             type={type}
             success={success}
+            loading={loading}
           ></UserForm>
         </CardContent>
         <CardActions></CardActions>

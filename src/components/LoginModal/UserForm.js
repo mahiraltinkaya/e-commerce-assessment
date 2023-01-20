@@ -4,14 +4,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Grid,
   TextField,
-  Button,
   Iconify,
   InputAdornment,
   Alert,
+  LoadingButton,
 } from "@components";
 import { useForm, Controller } from "react-hook-form";
 
-const UserForm = ({ onSubmit, success = null, type = false }) => {
+const UserForm = ({ onSubmit, success = null, type = false, loading }) => {
   const shipmentResolver = yup
     .object()
     .shape({
@@ -115,15 +115,16 @@ const UserForm = ({ onSubmit, success = null, type = false }) => {
               width: "100%",
             }}
           >
-            <Button
+            <LoadingButton
               color={"warning"}
               type={"submit"}
               variant={"outlined"}
-              size="small"
+              disabled={loading}
+              loading={loading}
+              size={"large"}
             >
               {!type ? "Login" : "Register"}
-              <Iconify icon={"gala:secure"} size={16}></Iconify>
-            </Button>
+            </LoadingButton>
           </Grid>
           <Grid></Grid>
         </Grid>
