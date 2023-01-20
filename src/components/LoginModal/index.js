@@ -25,12 +25,8 @@ const LoginModal = ({ open = true, handleClose }) => {
     setLoading(true);
     if (type) {
       UserService.register(val)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
+        .then((res) => {})
+        .catch((err) => {})
         .finally(() => {
           setLoading(false);
           setType(false);
