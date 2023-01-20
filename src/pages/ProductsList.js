@@ -39,8 +39,6 @@ const ProductsList = () => {
       if (!isLoading && products.length < 20) {
         dispatch(fetchProducts({ limit, sort }));
       }
-    } else {
-      dispatch(fetchProducts({ limit, sort }));
     }
   }, [limit]); // eslint-disable-line
 
