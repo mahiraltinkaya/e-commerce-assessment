@@ -29,13 +29,19 @@ const ProductsList = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchAllCategories());
     window.addEventListener("scroll", scrollHandler);
+
+    const apiCalls = async () => {
+      dispatch(fetchAllCategories());
+    };
+
+    apiCalls();
+
     return () => window.removeEventListener("scroll", scrollHandler);
   }, []);
 
   useEffect(() => {
-    if (category === "all") {
+    if (category === "all" && limit !== 12) {
       if (!isLoading && products.length < 20) {
         dispatch(fetchProducts({ limit, sort }));
       }
